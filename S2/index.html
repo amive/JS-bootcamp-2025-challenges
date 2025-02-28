@@ -275,36 +275,54 @@ button:hover {
             drawGrid();
 
 
-       function drawGrid() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    game.grid.forEach((row, y) => {
-        row.forEach((cell, x) => {
-            if (cell) {
-                ctx.fillStyle = 'white';
-                drawStar(ctx, x * game.cellSize + game.cellSize / 2, y * game.cellSize + game.cellSize / 2, game.cellSize / 2);
+               function drawGrid() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+            game.grid.forEach((row, y) => row.forEach((cell, x) => {
+                if (cell) {
+                    drawSnowflake(x * game.cellSize, y * game.cellSize, game.cellSize);
+                }
+            }));
+        
+            ctx.strokeStyle = "#555"; 
+            ctx.lineWidth = 0.5; 
+        
+            for (let x = 0; x < canvas.width; x += game.cellSize) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, canvas.height);
+                ctx.stroke();
             }
-        });
-    });
-
-
-    ctx.strokeStyle = "#555"; 
-    ctx.lineWidth = 0.5;
-
-    for (let x = 0; x < canvas.width; x += game.cellSize) {
-        ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, canvas.height);
-        ctx.stroke();
-    }
-
-    for (let y = 0; y < canvas.height; y += game.cellSize) {
-        ctx.beginPath();
-        ctx.moveTo(0, y);
-        ctx.lineTo(canvas.width, y);
-        ctx.stroke();
-    }
-}
+        
+            for (let y = 0; y < canvas.height; y += game.cellSize) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(canvas.width, y);
+                ctx.stroke();
+            }
+        }
+        
+        
+        function drawSnowflake(x, y, size) {
+            const halfSize = size / 2;
+            const quarterSize = size / 4;
+        
+            ctx.fillStyle = "#00d9ff"; 
+            ctx.beginPath();
+            
+            
+            ctx.moveTo(x + halfSize, y);                  
+            ctx.lineTo(x + halfSize - quarterSize, y + quarterSize);
+            ctx.lineTo(x, y + halfSize);                  
+            ctx.lineTo(x + quarterSize, y + halfSize + quarterSize);
+            ctx.lineTo(x + halfSize, y + size);           
+            ctx.lineTo(x + halfSize + quarterSize, y + halfSize + quarterSize);
+            ctx.lineTo(x + size, y + halfSize);           
+            ctx.lineTo(x + halfSize + quarterSize, y + quarterSize);
+            ctx.closePath();
+        
+            ctx.fill();
+        }
 
 
         document.getElementById('startBtn').addEventListener('click', () => {
