@@ -303,22 +303,18 @@ button:hover {
 }
 
 
-    function drawStar(x, y, size) {
-        const spikes = 5;
-        const outerRadius = size / 2;
-        const innerRadius = size / 4;
-        const step = Math.PI / spikes;
-        
+    function drawDiamond(x, y, size) {
+    const halfSize = size / 2;
+
+        ctx.fillStyle = "#006880";
         ctx.beginPath();
-        for (let i = 0; i < 2 * spikes; i++) {
-            const radius = i % 2 === 0 ? outerRadius : innerRadius;
-            const angle = i * step;
-            ctx.lineTo(x + radius * Math.cos(angle) + outerRadius, y + radius * Math.sin(angle) + outerRadius);
-        }
+        ctx.moveTo(x + halfSize, y);           
+        ctx.lineTo(x + size, y + halfSize);     
+        ctx.lineTo(x + halfSize, y + size);     
+        ctx.lineTo(x, y + halfSize);             
         ctx.closePath();
-        ctx.fillstyle='yellow';
         ctx.fill();
-    }
+}
 
 
         document.getElementById('startBtn').addEventListener('click', () => {
