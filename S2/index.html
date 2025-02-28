@@ -275,35 +275,47 @@ button:hover {
             drawGrid();
 
 
-            function drawGrid() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
+       function drawGrid() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-                
-                game.grid.forEach((row, y) => row.forEach((cell, x) => {
-                    if (cell) {
-                        ctx.fillStyle = 'white';
-                        ctx.fillRect(x * game.cellSize, y * game.cellSize, game.cellSize - 1, game.cellSize - 1);
-                    }
-                }));
+    game.grid.forEach((row, y) => row.forEach((cell, x) => {
+        if (cell) {
+            drawDiamond(x * game.cellSize, y * game.cellSize, game.cellSize);
+        }
+    }));
 
-                
-                ctx.strokeStyle = "#555"; 
-                ctx.lineWidth = 0.5; 
+    // Draw the grid lines (optional)
+    ctx.strokeStyle = "#555"; 
+    ctx.lineWidth = 0.5; 
 
-                for (let x = 0; x < canvas.width; x += game.cellSize) {
-                    ctx.beginPath();
-                    ctx.moveTo(x, 0);
-                    ctx.lineTo(x, canvas.height);
-                    ctx.stroke();
-                }
+    for (let x = 0; x < canvas.width; x += game.cellSize) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, canvas.height);
+        ctx.stroke();
+    }
 
-                for (let y = 0; y < canvas.height; y += game.cellSize) {
-                    ctx.beginPath();
-                    ctx.moveTo(0, y);
-                    ctx.lineTo(canvas.width, y);
-                    ctx.stroke();
-                }
-                }
+    for (let y = 0; y < canvas.height; y += game.cellSize) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(canvas.width, y);
+        ctx.stroke();
+    }
+}
+
+// Function to draw a diamond shape
+function drawDiamond(x, y, size) {
+    const halfSize = size / 2;
+
+    ctx.fillStyle = "white";
+    ctx.beginPath();
+    ctx.moveTo(x + halfSize, y);            // Top
+    ctx.lineTo(x + size, y + halfSize);      // Right
+    ctx.lineTo(x + halfSize, y + size);      // Bottom
+    ctx.lineTo(x, y + halfSize);             // Left
+    ctx.closePath();
+    ctx.fill();
+}
 
 
         document.getElementById('startBtn').addEventListener('click', () => {
