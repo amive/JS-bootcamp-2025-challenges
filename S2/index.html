@@ -306,22 +306,31 @@ button:hover {
         function drawSnowflake(x, y, size) {
             const halfSize = size / 2;
             const quarterSize = size / 4;
+            const eighthSize = size / 8;
         
-            ctx.fillStyle = "#00d9ff"; 
+            ctx.strokeStyle = "#00d9ff"; 
+            ctx.lineWidth = 2; 
             ctx.beginPath();
             
             
-            ctx.moveTo(x + halfSize, y);                  
-            ctx.lineTo(x + halfSize - quarterSize, y + quarterSize);
-            ctx.lineTo(x, y + halfSize);                  
-            ctx.lineTo(x + quarterSize, y + halfSize + quarterSize);
-            ctx.lineTo(x + halfSize, y + size);           
-            ctx.lineTo(x + halfSize + quarterSize, y + halfSize + quarterSize);
-            ctx.lineTo(x + size, y + halfSize);           
-            ctx.lineTo(x + halfSize + quarterSize, y + quarterSize);
-            ctx.closePath();
+            for (let i = 0; i < 6; i++) {
+                const angle = (Math.PI / 3) * i;
+                const xEnd = x + halfSize * Math.cos(angle);
+                const yEnd = y + halfSize * Math.sin(angle);
+                ctx.moveTo(x + quarterSize * Math.cos(angle), y + quarterSize * Math.sin(angle));
+                ctx.lineTo(xEnd, yEnd);
         
-            ctx.fill();
+                
+                for (let j = -1; j <= 1; j += 2) { 
+                    const branchAngle = angle + (j * Math.PI / 6);
+                    const branchX = xEnd + eighthSize * Math.cos(branchAngle);
+                    const branchY = yEnd + eighthSize * Math.sin(branchAngle);
+                    ctx.moveTo(xEnd, yEnd);
+                    ctx.lineTo(branchX, branchY);
+                }
+            }
+        
+            ctx.stroke();
         }
 
 
