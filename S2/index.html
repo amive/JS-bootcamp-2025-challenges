@@ -128,20 +128,25 @@ button:active {
         }
         .attribution { 
     font-size: 13px;
+    color: lightblue;
+    font-weight:800;
     display: flex;
     align-items: center;
     justify-content: center;
     position: fixed; 
-    bottom: 138px;
+    bottom: 0px;
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
     text-align: center;
-    padding: 5px 0;
+    backdrop-filter: blur(1.5px);
     
   }
 
-    .attribution a { color: hsl(228, 45%, 44%); }
+    .attribution a {
+        color: hsl(228, 45%, 44%);
+        text-decoration: none;
+                   }
     .attribution img {
         display: flex;
         width: 15px;
@@ -155,7 +160,6 @@ button:active {
     padding: 8px 15px;
     border-radius: 5px;
     text-align: center;
-    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
     text-shadow: 0px 0px 8px rgba(0, 217, 255, 0.8);
     backdrop-filter: blur(4px);
     margin-bottom: 10px;
@@ -194,7 +198,7 @@ button:active {
 
     
     <div class="attribution">
-        Coded by&nbsp;<a href="https://discordapp.com/users/660138757504106496" target="_blank">amive</a>&nbsp;<a href="https://discordapp.com/users/660138757504106496"><img src="https://cdn3.emoji.gg/emojis/4929-discord.png" alt="My Discord"></a>
+        Coded by&nbsp;<a href="https://discordapp.com/users/660138757504106496" target="_blank">amive</a>&nbsp;<a href="https://discordapp.com/users/660138757504106496" target="_blank"><img src="https://cdn3.emoji.gg/emojis/4929-discord.png" alt="My Discord"></a>
       </div>
     
     <script>
