@@ -284,7 +284,6 @@ button:hover {
         }
     }));
 
-    // Draw the grid lines (optional)
     ctx.strokeStyle = "#555"; 
     ctx.lineWidth = 0.5; 
 
@@ -303,19 +302,23 @@ button:hover {
     }
 }
 
-// Function to draw a diamond shape
-function drawDiamond(x, y, size) {
-    const halfSize = size / 2;
 
-    ctx.fillStyle = "#B9F2FF";
-    ctx.beginPath();
-    ctx.moveTo(x + halfSize, y);            // Top
-    ctx.lineTo(x + size, y + halfSize);      // Right
-    ctx.lineTo(x + halfSize, y + size);      // Bottom
-    ctx.lineTo(x, y + halfSize);             // Left
-    ctx.closePath();
-    ctx.fill();
-}
+    function drawStar(x, y, size) {
+        const spikes = 5;
+        const outerRadius = size / 2;
+        const innerRadius = size / 4;
+        const step = Math.PI / spikes;
+        
+        ctx.beginPath();
+        for (let i = 0; i < 2 * spikes; i++) {
+            const radius = i % 2 === 0 ? outerRadius : innerRadius;
+            const angle = i * step;
+            ctx.lineTo(x + radius * Math.cos(angle) + outerRadius, y + radius * Math.sin(angle) + outerRadius);
+        }
+        ctx.closePath();
+        ctx.fillstyle='yellow';
+        ctx.fill();
+    }
 
 
         document.getElementById('startBtn').addEventListener('click', () => {
