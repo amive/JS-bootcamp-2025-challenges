@@ -148,12 +148,22 @@ button:hover {
     padding: 5px 0;
     
   }
-.attribution a { color: hsl(228, 45%, 44%); }
-.attribution img {
-    display: flex;
-    width: 15px;
-    background-color: #6032d370;
-    border-radius: 30px;}
+
+    #instructionText {
+        margin-top: 10px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #ffffff;
+        text-align: center;
+        text-shadow: 0px 0px 5px rgba(255, 255, 255, 0.6);
+    }
+    
+    .attribution a { color: hsl(228, 45%, 44%); }
+    .attribution img {
+        display: flex;
+        width: 15px;
+        background-color: #6032d370;
+        border-radius: 30px;}
     </style>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
@@ -173,7 +183,15 @@ button:hover {
             <button id="speedUpBtn">➕</button>
         </div>
     <canvas id="gridCanvas" width="700" height="400"></canvas>
-
+    
+    <p id="instructionText">
+        Click and hold on the grid to draw your own pattern, or choose one of the preset shapes above to start!
+    </p>
+    
+    <div class="attribution">
+        Coded by&nbsp;<a href="https://discordapp.com/users/660138757504106496" target="_blank">amive</a>&nbsp;<img src="https://img.icons8.com/?size=100&id=25627&format=png&color=000000">
+      </div>
+    
     <script>
         class Game {
             constructor(rows, cols, cellSize) {
@@ -413,7 +431,4 @@ button:hover {
                   drawGrid(); });
         });
     </script>
-    <div class="attribution">
-        Coded by&nbsp;<a href="https://discordapp.com/users/660138757504106496" target="_blank">amive</a>&nbsp;<img src="https://img.icons8.com/?size=100&id=25627&format=png&color=000000">
-      </div>
 </body>
