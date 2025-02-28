@@ -10,7 +10,6 @@
         }
 
         body {
-            scale:125%;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -128,12 +127,12 @@ button:active {
             transition: background-color 0.3s, transform 0.2s;
         }
         .attribution { 
-    font-size: 11px;
+    font-size: 13px;
     display: flex;
     align-items: center;
     justify-content: center;
     position: fixed; 
-    bottom: 10px;
+    bottom: 165px;
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
@@ -142,6 +141,13 @@ button:active {
     
   }
 
+    .attribution a { color: hsl(228, 45%, 44%); }
+    .attribution img {
+        display: flex;
+        width: 15px;
+        background-color: #6032d370;
+        border-radius: 30px;}
+        
     #instructions {
     font-size: 16px;
     font-weight: bold;
@@ -162,12 +168,6 @@ button:active {
     to { opacity: 1; transform: translateY(0); }
 }
     
-    .attribution a { color: hsl(228, 45%, 44%); }
-    .attribution img {
-        display: flex;
-        width: 15px;
-        background-color: #6032d370;
-        border-radius: 30px;}
     </style>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
@@ -190,7 +190,7 @@ button:active {
     <p id="instructions">
         Click and hold on the grid to draw your own pattern, or choose one of the preset shapes above to start!
     </p>
-    <canvas id="gridCanvas" width="700" height="400"></canvas>
+    <canvas id="gridCanvas" width="800" height="500"></canvas>
     
 
     
@@ -292,7 +292,7 @@ button:active {
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            const game = new Game(40, 70, 10);
+            const game = new Game(40, 70, 20);
             const canvas = document.getElementById('gridCanvas');
             const ctx = canvas.getContext('2d');
             let intervalId;
