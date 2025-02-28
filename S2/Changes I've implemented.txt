@@ -1,0 +1,19 @@
+Changes I've implemented:
+
+1#
+Completed the missing parts and centered them to make it look good.
+
+2#
+Added an eater below the Glider gun as a fix of self destruction (it's an 'it' idk if i can refer to it using 'self' but you get it, we can say 'itself' so it's true? prob).
+
+3#
+Replaced drawGosperGliderGun with drawPentaDecathlon :).
+
+4#
+Replaced renderer and draw with Drawgrid, so i can add some changes like grid lines and styles easily.
+
+5#
+Added buttons to adjust the game speed.
+
+6#
+Made some styling, ofc i had some help cuz i'm not that creative :/.
