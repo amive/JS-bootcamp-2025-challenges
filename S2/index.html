@@ -281,7 +281,7 @@ button:hover {
                 
                 game.grid.forEach((row, y) => row.forEach((cell, x) => {
                     if (cell) {
-                        ctx.fillStyle = 'gray';
+                        ctx.fillStyle = '#080E4D';
                         ctx.fillRect(x * game.cellSize, y * game.cellSize, game.cellSize - 1, game.cellSize - 1);
                     }
                 }));
