@@ -311,7 +311,9 @@ button:active {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
         
             game.grid.forEach((row, y) => row.forEach((cell, x) => {
-               
+                if (cell) {
+                    drawDiamond(x * game.cellSize, y * game.cellSize, game.cellSize);
+                }
             }));
         
             ctx.strokeStyle = "#555"; 
@@ -333,7 +335,17 @@ button:active {
         }
         
         
-      
+        function drawDiamond(x, y, size) {
+            const halfSize = size / 2;
+            ctx.fillStyle = "#00d9ff";
+            ctx.beginPath();
+            ctx.moveTo(x + halfSize, y);            
+            ctx.lineTo(x + size, y + halfSize);      
+            ctx.lineTo(x + halfSize, y + size);      
+            ctx.lineTo(x, y + halfSize);             
+            ctx.closePath();
+            ctx.fill();
+        }
 
         let isDrawing = false;
             
