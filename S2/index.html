@@ -23,7 +23,7 @@
 
         canvas {
             border: 2px solid #ffffff;
-            background-color: coral;
+            background-color: #CFE2F3;
             box-shadow: 0px 0px 15px #ffffff44;
         }
 
@@ -281,7 +281,7 @@ button:hover {
                 
                 game.grid.forEach((row, y) => row.forEach((cell, x) => {
                     if (cell) {
-                        ctx.fillStyle = 'salmon';
+                        ctx.fillStyle = 'gray';
                         ctx.fillRect(x * game.cellSize, y * game.cellSize, game.cellSize - 1, game.cellSize - 1);
                     }
                 }));
