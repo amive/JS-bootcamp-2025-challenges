@@ -315,7 +315,37 @@ button:hover {
             ctx.fill();
         }
 
-
+        let isDrawing = false;
+            
+            canvas.addEventListener('mousedown', (event) => {
+                isDrawing = true;
+                toggleCell(event);
+            });
+            
+            canvas.addEventListener('mousemove', (event) => {
+                if (isDrawing) {
+                    toggleCell(event);
+                }
+            });
+            
+            canvas.addEventListener('mouseup', () => {
+                isDrawing = false;
+            });
+            
+            canvas.addEventListener('mouseleave', () => {
+                isDrawing = false;
+            });
+            
+            function toggleCell(event) {
+                const rect = canvas.getBoundingClientRect();
+                const x = Math.floor((event.clientX - rect.left) / game.cellSize);
+                const y = Math.floor((event.clientY - rect.top) / game.cellSize);
+            
+                if (x >= 0 && x < game.cols && y >= 0 && y < game.rows) {
+                    game.grid[y][x] = !game.grid[y][x]; // Toggle the cell state
+                    drawGrid(); // Update the canvas immediately
+                }
+            }
         document.getElementById('startBtn').addEventListener('click', () => {
             game.isRunning = !game.isRunning;
             const startBtn = document.getElementById('startBtn');
