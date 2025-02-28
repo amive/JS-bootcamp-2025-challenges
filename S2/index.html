@@ -15,7 +15,7 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
-            background-color: #2A293E;
+            background-image: url(bg_gol2.gif);
             color: white;
             font-family: Arial, sans-serif;
             user-select: none;
@@ -23,8 +23,8 @@
 
         canvas {
             border: 2px solid #ffffff;
-            background-color: #CFE2F3;
-            box-shadow: 0px 0px 15px #ffffff44;
+            background-color: #000000;
+            box-shadow: 0px 0px 6px #ffffff44;
         }
 
         .controls {
@@ -281,7 +281,386 @@ button:hover {
                 
                 game.grid.forEach((row, y) => row.forEach((cell, x) => {
                     if (cell) {
-                        ctx.fillStyle = '#080E4D';
+                        ctx.fillStyle = 'white';
+                        ctx.fillRect(x * game.cellSize, y * game.cellSize, game.cellSize - 1, game.cellSize - 1);
+                    }
+                }));
+
+                
+                ctx.strokeStyle = "#555"; 
+                ctx.lineWidth = 0.5; 
+
+                for (let x = 0; x < canvas.width; x += game.cellSize) {
+                    ctx.beginPath();
+                    ctx.moveTo(x, 0);
+                    ctx.lineTo(x, canvas.height);
+                    ctx.stroke();
+                }
+
+                for (let y = 0; y < canvas.height; y += game.cellSize) {
+                    ctx.beginPath();
+                    ctx.moveTo(0, y);
+                    ctx.lineTo(canvas.width, y);
+                    ctx.stroke();
+                }
+                }
+
+
+        document.getElementById('startBtn').addEventListener('click', () => {
+            game.isRunning = !game.isRunning;
+            const startBtn = document.getElementById('startBtn');
+
+            if (game.isRunning) {
+                startBtn.textContent = "Stop";
+                startBtn.style.backgroundColor = "#e74c3c";
+                updateGameSpeed();
+            } else {
+                startBtn.textContent = "Start";
+                startBtn.style.backgroundColor = "#2ecc71";
+                clearInterval(intervalId);
+            }
+        });
+
+            let speedLevel = 5;  
+            const minSpeed = 1;  
+            const maxSpeed = 20; 
+            const baseInterval = 500; 
+            const speedDisplay = document.getElementById('speedDisplay');
+
+            function getSpeedInMs(level) {
+                return baseInterval / level;
+            }
+
+            function updateGameSpeed() {
+                if (game.isRunning) {
+                    clearInterval(intervalId);
+                    intervalId = setInterval(() => {
+                        game.update();
+                        drawGrid();
+                    }, getSpeedInMs(speedLevel));
+                }
+                speedDisplay.textContent = `Speed: ${speedLevel}`;
+                speedDisplay.style.transform = 'scale(1.2)';
+                speedDisplay.style.transition = 'transform 0.2s ease-in-out';
+
+                setTimeout(() => { speedDisplay.style.transform = 'scale(1)'; }, 200);
+            }
+
+            document.getElementById('speedUpBtn').addEventListener('click', () => {
+                if (speedLevel < maxSpeed) speedLevel++;
+                updateGameSpeed();
+            });
+            document.getElementById('slowDownBtn').addEventListener('click', () => {
+                if (speedLevel > minSpeed) speedLevel--;
+                updateGameSpeed();
+            });
+
+
+            document.getElementById('clearBtn').addEventListener('click', () => { 
+                game.grid = game.createEmptyGrid(); 
+                drawGrid(); });
+            document.getElementById('randomBtn').addEventListener('click', () => {
+                 game.randomize();
+                  drawGrid(); });
+            document.getElementById('gliderGunBtn').addEventListener('click', () => {
+                 game.drawGliderGun();
+                  drawGrid(); });
+            document.getElementById('pulsarBtn').addEventListener('click', () => { 
+                game.drawPulsar();
+                 drawGrid(); });
+            document.getElementById('pentaDecathlonBtn').addEventListener('click', () => {
+                game.drawPentaDecathlon();// Nice drawGosperGliderGun :).
+                  drawGrid(); });
+        });
+    </script>
+    <div class="attribution">
+        Coded by&nbsp;<a href="https://discordapp.com/users/660138757504106496" target="_blank">amive</a>&nbsp;<img src="https://img.icons8.com/?size=100&id=25627&format=png&color=000000">
+      </div>
+</body>
+</html><!DOCTYPE html>
+<html>
+<head>
+    <title>Conway's Game of Life</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-image: url(bg_gol2.gif);
+            color: white;
+            font-family: Arial, sans-serif;
+            user-select: none;
+        }
+
+        canvas {
+            border: 2px solid #ffffff;
+            background-color: #000000;
+            box-shadow: 0px 0px 6px #ffffff44;
+        }
+
+        .controls {
+            margin: 15px;
+            display: flex;
+            gap: 10px;
+        }
+
+        button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 6px 12px rgba(255, 255, 255, 0.2);
+}
+
+
+button:active {
+    transform: scale(0.95);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+
+#startBtn {
+    background-color: #27ae60;
+}
+#startBtn:hover {
+    background-color: #219150;
+}
+
+#clearBtn {
+    background-color: #8b0000;
+}
+#clearBtn:hover {
+    background-color: #720000;
+}
+
+#randomBtn {
+    background-color: #fc03b1;
+}
+#randomBtn:hover {
+    background-color: #d41199;
+}
+
+#gliderGunBtn {
+    background-color: #8e44ad;
+}
+#gliderGunBtn:hover {
+    background-color: #732d91;
+}
+
+#pulsarBtn {
+    background-color: #3498db;
+}
+#pulsarBtn:hover {
+    background-color: #2980b9;
+}
+
+#pentaDecathlonBtn {
+    background-color: #ff5733;
+}
+#pentaDecathlonBtn:hover {
+    background-color: #cc4626;
+}
+
+
+@keyframes glowing {
+    0% { box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.2); }
+    50% { box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.4); }
+    100% { box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.2); }
+}
+
+button:hover {
+    animation: glowing 1.5s infinite alternate;
+}
+
+        .speed-control {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 5px 10px;
+            border-radius: 3px;
+        }
+
+        #speedDisplay {
+            font-size: 18px;
+            font-weight: bold;
+            color: #00d9ff;
+            background: #1a1a1a;
+            padding: 5px 10px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 3px rgba(0, 217, 255, 0.5);
+        }
+        button#startBtn {
+    transition: background-color 0.3s, transform 0.2s;
+}
+        button{
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .attribution { 
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed; 
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    text-align: center;
+    padding: 5px 0;
+    
+  }
+.attribution a { color: hsl(228, 45%, 44%); }
+.attribution img {
+    display: flex;
+    width: 15px;
+    background-color: #6032d370;
+    border-radius: 30px;}
+    </style>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <div class="controls">
+        <button id="startBtn">Start</button>
+        <button id="clearBtn">Clear</button>
+        <button id="randomBtn">Random</button>
+        <button id="gliderGunBtn">Glider Gun</button>
+        <button id="pulsarBtn">Pulsar</button>
+        <button id="pentaDecathlonBtn">PentaDecathlon</button>
+        </div>
+    <div class="speed-control">
+            <button id="slowDownBtn">➖</button>
+            <span id="speedDisplay">Speed: 5</span>
+            <button id="speedUpBtn">➕</button>
+        </div>
+    <canvas id="gridCanvas" width="700" height="400"></canvas>
+
+    <script>
+        class Game {
+            constructor(rows, cols, cellSize) {
+                this.rows = rows;
+                this.cols = cols;
+                this.cellSize = cellSize;
+                this.grid = this.createEmptyGrid();
+                this.isRunning = false;
+            }
+
+            createEmptyGrid() {
+                return Array(this.rows).fill().map(() => Array(this.cols).fill(false));
+            }
+
+            randomize() {
+                this.grid = this.grid.map(row => row.map(() => Math.random() > 0.85));
+            }
+
+            drawGliderGun() {
+                // Write your function here
+                const metrix = [
+                [36, 1],
+                [34, 2], [36, 2],
+                [24, 3], [25, 3], [32, 3], [33, 3], [46, 3], [47, 3],
+                [23, 4], [27, 4], [32, 4], [33, 4], [46, 4], [47, 4],
+                [12, 5], [13, 5], [22, 5], [28, 5], [32, 5], [33, 5],
+                [12, 6], [13, 6], [22, 6], [26, 6], [28, 6], [29, 6], [34, 6], [36, 6],
+                [22, 7], [28, 7], [36, 7],
+                [23, 8], [27, 8],
+                [24, 9], [25, 9],
+                //👇 "An Eater" to fix the self-destruction bug you talked about last Live stream. 
+                [58, 33], [59, 33],
+                [58, 34], [60, 34],
+                [60, 35],
+                [60, 36], [61, 36]
+                ]
+
+                metrix.forEach(([x, y]) => {
+                    this.grid[y][x] = true;
+                });
+            }
+
+            drawPulsar() {
+                const metrix = [
+                [29, 14], [30, 14], [31, 14], [35, 14], [36, 14], [37, 14],
+                [27, 16], [32, 16], [34, 16], [39, 16],
+                [27, 17], [32, 17], [34, 17], [39, 17],
+                [27, 18], [32, 18], [34, 18], [39, 18],
+                [29, 19], [30, 19], [31, 19], [35, 19], [36, 19], [37, 19],
+                [29, 21], [30, 21], [31, 21], [35, 21], [36, 21], [37, 21],
+                [27, 22], [32, 22], [34, 22], [39, 22],
+                [27, 23], [32, 23], [34, 23], [39, 23],
+                [27, 24], [32, 24], [34, 24], [39, 24],
+                [29, 26], [30, 26], [31, 26], [35, 26], [36, 26], [37, 26]
+                ];
+                metrix.forEach(([x, y]) => { 
+                    this.grid[y][x] = true; });
+            }
+
+            drawPentaDecathlon() {
+                const metrix = [
+                [30, 18], [31, 18], [32, 17], [32, 19], [33, 18], [34, 18],[35, 18],[36, 18],
+                [37, 17], [37, 19], [38, 18], [39, 18]
+                ];
+                metrix.forEach(([x, y]) => { 
+                    this.grid[y][x] = true; });
+            }
+
+            update() {
+                const newGrid = this.createEmptyGrid();
+                for (let y = 0; y < this.rows; y++) {
+                    for (let x = 0; x < this.cols; x++) {
+                        const neighbors = this.countNeighbors(x, y);
+                        newGrid[y][x] = (this.grid[y][x] && (neighbors === 2 || neighbors === 3)) || (!this.grid[y][x] && neighbors === 3);
+                    }
+                }
+                this.grid = newGrid;
+            }
+
+            countNeighbors(x, y) {
+                let count = 0;
+                for (let dy = -1; dy <= 1; dy++) {
+                    for (let dx = -1; dx <= 1; dx++) {
+                        if (dx === 0 && dy === 0) continue;
+                        const nx = (x + dx + this.cols) % this.cols;
+                        const ny = (y + dy + this.rows) % this.rows;
+                        if (this.grid[ny][nx]) count++;
+                    }
+                }
+                return count;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const game = new Game(40, 70, 10);
+            const canvas = document.getElementById('gridCanvas');
+            const ctx = canvas.getContext('2d');
+            let intervalId;
+            drawGrid();
+
+
+            function drawGrid() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                
+                game.grid.forEach((row, y) => row.forEach((cell, x) => {
+                    if (cell) {
+                        ctx.fillStyle = 'white';
                         ctx.fillRect(x * game.cellSize, y * game.cellSize, game.cellSize - 1, game.cellSize - 1);
                     }
                 }));
