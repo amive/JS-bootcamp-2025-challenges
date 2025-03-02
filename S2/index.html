@@ -8,6 +8,9 @@
             padding: 0;
             box-sizing: border-box;
         }
+        html, body {
+            touch-action: manipulation;
+        }
 
         body {
             display: flex;
@@ -464,5 +467,12 @@ button:active {
                 game.drawPentaDecathlon();// Nice drawGosperGliderGun :).
                   drawGrid(); });
         });
+        
+        
+            document.addEventListener('touchstart', function(event) {
+                if (event.touches.length > 1) {
+                    event.preventDefault();
+                }
+                }, { passive: false });
     </script>
 </body>
