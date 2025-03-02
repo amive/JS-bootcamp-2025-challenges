@@ -26,8 +26,6 @@
             border: 2px solid #ffffff;
             background-color: #000000;
             box-shadow: 0px 0px 6px #ffffff44;
-            position: relative;
-            z-index: 10;
         }
 
         .controls {
@@ -395,8 +393,8 @@
                 const y = Math.floor((event.clientY - rect.top) / game.cellSize);
             
                 if (x >= 0 && x < game.cols && y >= 0 && y < game.rows) {
-                    game.grid[y][x] = !game.grid[y][x]; 
-                    requestAnimationFrame(drawGrid); 
+                    game.grid[y][x] = !game.grid[y][x]; // Toggle the cell state
+                    drawGrid(); // Update the canvas immediately
                 }
             }
         document.getElementById('startBtn').addEventListener('click', () => {
@@ -432,7 +430,7 @@
                         drawGrid();
                     }, getSpeedInMs(speedLevel));
                 }
-                speedDisplay.textContent = `Speed: ${speedLevel}`;
+                speedDisplay.textContent = Speed: ${speedLevel};
                 speedDisplay.style.transform = 'scale(1.2)';
                 speedDisplay.style.transition = 'transform 0.2s ease-in-out';
 
