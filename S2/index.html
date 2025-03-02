@@ -18,99 +18,16 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
-            background-color: #111;
+            background-image: url(bg_gol2.gif);
+            color: white;
             font-family: Arial, sans-serif;
             user-select: none;
         }
 
-        /* Monitor Frame */
-        .monitor {
-            position: relative;
-            width: 850px;
-            height: 450px;
-            background: #222;
-            border-radius: 20px;
-            box-shadow: 0px 0px 15px rgba(0, 255, 255, 0.5), 
-                        inset 0px 0px 20px rgba(0, 255, 255, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding-top: 15px;
-        }
-
-        /* Canvas inside the monitor */
         canvas {
-            border: none;
-            background-color: #000;
-            box-shadow: inset 0px 0px 6px rgba(255, 255, 255, 0.2);
-            border-radius: 5px;
-        }
-
-        /* Monitor stand */
-        .stand {
-            width: 120px;
-            height: 20px;
-            background: #222;
-            border-radius: 10px;
-            margin-top: -10px;
-            box-shadow: inset 0px 0px 5px rgba(0, 255, 255, 0.3);
-        }
-
-        /* Keyboard */
-        .keyboard {
-            width: 600px;
-            height: 80px;
-            background: #333;
-            border-radius: 10px;
-            margin-top: 15px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            padding: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 255, 255, 0.3);
-        }
-
-        .key {
-            width: 40px;
-            height: 40px;
-            background: #444;
-            margin: 5px;
-            border-radius: 5px;
-            text-align: center;
-            line-height: 40px;
-            font-weight: bold;
-            color: #0ff;
-            box-shadow: 0px 0px 5px rgba(0, 255, 255, 0.3);
-            transition: transform 0.1s, background 0.2s;
-        }
-
-        .key:active {
-            transform: scale(0.9);
-            background: #0ff;
-            color: #000;
-        }
-
-        /* Mouse */
-        .mouse {
-            width: 50px;
-            height: 80px;
-            background: #444;
-            border-radius: 30px;
-            position: relative;
-            margin-top: 10px;
-            box-shadow: 0px 0px 8px rgba(0, 255, 255, 0.3);
-        }
-
-        .mouse::before {
-            content: '';
-            width: 10px;
-            height: 30px;
-            background: #333;
-            position: absolute;
-            top: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 5px;
+            border: 2px solid #ffffff;
+            background-color: #000000;
+            box-shadow: 0px 0px 6px #ffffff44;
         }
 
         .controls {
@@ -120,53 +37,150 @@
         }
 
         button {
-            padding: 12px 20px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            color: white;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-        }
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
 
-        button:hover {
-            transform: scale(1.05);
-            box-shadow: 0px 6px 8px rgba(255, 255, 255, 0.2);
-        }
 
-        button:active {
-            transform: scale(0.95);
-            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
-        }
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 6px 8px rgba(255, 255, 255, 0.2);
+}
 
-        /* Attribution */
-        .attribution {
-            font-size: 13px;
-            color: lightblue;
-            font-weight: 800;
+
+button:active {
+    transform: scale(0.95);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+
+#startBtn {
+    background-color: #27ae60;
+}
+#startBtn:hover {
+    background-color: #219150;
+}
+#slowDownBtn{
+    background-color:#581845;
+}
+#speedUpBtn{
+    background-color:#581845;
+}
+#clearBtn {
+    background-color: #8b0000;
+}
+#clearBtn:hover {
+    background-color: #720000;
+}
+
+#randomBtn {
+    background-color: #fc03b1;
+}
+#randomBtn:hover {
+    background-color: #d41199;
+}
+
+#gliderGunBtn {
+    background-color: #8e44ad;
+}
+#gliderGunBtn:hover {
+    background-color: #732d91;
+}
+
+#pulsarBtn {
+    background-color: #3498db;
+}
+#pulsarBtn:hover {
+    background-color: #2980b9;
+}
+
+#pentaDecathlonBtn {
+    background-color: #ff5733;
+}
+#pentaDecathlonBtn:hover {
+    background-color: #cc4626;
+}
+
+        .speed-control {
             display: flex;
             align-items: center;
-            justify-content: center;
-            position: fixed;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100%;
-            text-align: center;
-            backdrop-filter: blur(1.5px);
+            gap: 15px;
+            padding: 5px 10px;
+            border-radius: 3px;
         }
 
-        .attribution a {
-            color: hsl(228, 45%, 44%);
-            text-decoration: none;
+        #speedDisplay {
+            font-size: 18px;
+            font-weight: bold;
+            color: #00d9ff;
+            background: #1a1a1a;
+            padding: 5px 10px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 3px rgba(0, 217, 255, 0.5);
         }
+        button#startBtn {
+    transition: background-color 0.3s, transform 0.2s;
+}
+        button{
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .attribution { 
+    font-size: 13px;
+    color: lightblue;
+    font-weight:800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed; 
+    bottom: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    text-align: center;
+    backdrop-filter: blur(1.5px);
+    
+  }
+
+    .attribution a {
+        color: hsl(228, 45%, 44%);
+        text-decoration: none;
+                   }
+    .attribution img {
+        display: flex;
+        width: 15px;
+        }
+        
+    #instructions {
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-align: center;
+    text-shadow: 0px 0px 8px rgba(0, 217, 255, 0.4);
+    backdrop-filter: blur(2.5px);
+    margin-bottom: 10px;
+    animation: fadeIn 1s ease-in-out;
+}
+  
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+    
     </style>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
-
-    <!-- Buttons -->
     <div class="controls">
         <button id="startBtn">Start</button>
         <button id="clearBtn">Clear</button>
@@ -174,33 +188,23 @@
         <button id="gliderGunBtn">Glider Gun</button>
         <button id="pulsarBtn">Pulsar</button>
         <button id="pentaDecathlonBtn">PentaDecathlon</button>
-    </div>
+        </div>
+    <div class="speed-control">
+            <button id="slowDownBtn">➖</button>
+            <span id="speedDisplay">Speed: 5</span>
+            <button id="speedUpBtn">➕</button>
+        </div>
+        
+    <p id="instructions">
+        Click and hold on the grid to draw your own pattern, or choose one of the preset shapes above to start!
+    </p>
+    <canvas id="gridCanvas" width="800" height="350"></canvas>
+    
 
-    <!-- Monitor -->
-    <div class="monitor">
-        <canvas id="gridCanvas" width="800" height="350"></canvas>
-    </div>
-
-    <!-- Stand -->
-    <div class="stand"></div>
-
-    <!-- Keyboard -->
-    <div class="keyboard">
-        <div class="key">W</div>
-        <div class="key">A</div>
-        <div class="key">S</div>
-        <div class="key">D</div>
-        <div class="key">⏎</div>
-        <div class="key">␣</div>
-    </div>
-
-    <!-- Mouse -->
-    <div class="mouse"></div>
-
-    <!-- Attribution -->
+    
     <div class="attribution">
-        Coded by&nbsp;<a href="https://discordapp.com/users/660138757504106496" target="_blank">amive</a>
-    </div>
+        Coded by&nbsp;<a href="https://discordapp.com/users/660138757504106496" target="_blank">amive</a>&nbsp;<a href="https://discordapp.com/users/660138757504106496" target="_blank"><img src="https://cdn3.emoji.gg/emojis/4929-discord.png" alt="My Discord"></a>
+      </div>
     
     <script>
         class Game {
@@ -471,4 +475,3 @@
                 }, { passive: false });
     </script>
 </body>
-</html>
