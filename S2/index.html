@@ -346,24 +346,47 @@ button:active {
 
         let isDrawing = false;
             
+            function getTouchPos(event) {
+                const rect = canvas.getBoundingClientRect();
+                const touch = event.touches[0] || event.changedTouches[0];
+                return {
+                    x: Math.floor((touch.clientX - rect.left) / game.cellSize),
+                    y: Math.floor((touch.clientY - rect.top) / game.cellSize)
+                };
+            }
+            
+            function handleInteraction(event, isTouch = false) {
+                event.preventDefault();
+                let pos = isTouch ? getTouchPos(event) : {
+                    x: Math.floor((event.clientX - canvas.getBoundingClientRect().left) / game.cellSize),
+                    y: Math.floor((event.clientY - canvas.getBoundingClientRect().top) / game.cellSize)
+                };
+            
+                if (pos.x >= 0 && pos.x < game.cols && pos.y >= 0 && pos.y < game.rows) {
+                    game.grid[pos.y][pos.x] = !game.grid[pos.y][pos.x];
+                    drawGrid();
+                }
+            }
+            
             canvas.addEventListener('mousedown', (event) => {
                 isDrawing = true;
-                toggleCell(event);
+                handleInteraction(event);
             });
-            
             canvas.addEventListener('mousemove', (event) => {
-                if (isDrawing) {
-                    toggleCell(event);
-                }
+                if (isDrawing) handleInteraction(event);
             });
+            canvas.addEventListener('mouseup', () => isDrawing = false);
+            canvas.addEventListener('mouseleave', () => isDrawing = false);
             
-            canvas.addEventListener('mouseup', () => {
-                isDrawing = false;
+            canvas.addEventListener('touchstart', (event) => {
+                isDrawing = true;
+                handleInteraction(event, true);
             });
-            
-            canvas.addEventListener('mouseleave', () => {
-                isDrawing = false;
+            canvas.addEventListener('touchmove', (event) => {
+                if (isDrawing) handleInteraction(event, true);
             });
+            canvas.addEventListener('touchend', () => isDrawing = false);
+            canvas.addEventListener('touchcancel', () => isDrawing = false);
             
             function toggleCell(event) {
                 const rect = canvas.getBoundingClientRect();
