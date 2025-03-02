@@ -26,6 +26,8 @@
             border: 2px solid #ffffff;
             background-color: #000000;
             box-shadow: 0px 0px 6px #ffffff44;
+            position: relative;
+            z-index: 10;
         }
 
         .controls {
@@ -393,8 +395,8 @@
                 const y = Math.floor((event.clientY - rect.top) / game.cellSize);
             
                 if (x >= 0 && x < game.cols && y >= 0 && y < game.rows) {
-                    game.grid[y][x] = !game.grid[y][x]; // Toggle the cell state
-                    drawGrid(); // Update the canvas immediately
+                    game.grid[y][x] = !game.grid[y][x]; 
+                    requestAnimationFrame(drawGrid); 
                 }
             }
         document.getElementById('startBtn').addEventListener('click', () => {
