@@ -23,13 +23,14 @@
             user-select: none;
         }
 
+        /* Monitor Frame */
         .monitor {
             position: relative;
             width: 850px;
             height: 450px;
             background: #222;
             border-radius: 20px;
-            box-shadow: 0px 0px 15px rgba(0, 255, 255, 0.5),
+            box-shadow: 0px 0px 15px rgba(0, 255, 255, 0.5), 
                         inset 0px 0px 20px rgba(0, 255, 255, 0.2);
             display: flex;
             align-items: center;
@@ -37,6 +38,7 @@
             padding-top: 15px;
         }
 
+        /* Canvas inside the monitor */
         canvas {
             border: none;
             background-color: #000;
@@ -44,6 +46,7 @@
             border-radius: 5px;
         }
 
+        /* Monitor stand */
         .stand {
             width: 120px;
             height: 20px;
@@ -53,6 +56,7 @@
             box-shadow: inset 0px 0px 5px rgba(0, 255, 255, 0.3);
         }
 
+        /* Keyboard */
         .keyboard {
             width: 600px;
             height: 80px;
@@ -86,6 +90,7 @@
             color: #000;
         }
 
+        /* Mouse */
         .mouse {
             width: 50px;
             height: 80px;
@@ -136,6 +141,7 @@
             box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
+        /* Attribution */
         .attribution {
             font-size: 13px;
             color: lightblue;
@@ -160,6 +166,7 @@
 </head>
 <body>
 
+    <!-- Buttons -->
     <div class="controls">
         <button id="startBtn">Start</button>
         <button id="clearBtn">Clear</button>
@@ -167,17 +174,17 @@
         <button id="gliderGunBtn">Glider Gun</button>
         <button id="pulsarBtn">Pulsar</button>
         <button id="pentaDecathlonBtn">PentaDecathlon</button>
-        <button id="slowDownBtn">Slow Down</button>
-        <button id="speedUpBtn">Speed Up</button>
-        <span id="speedDisplay">Speed: 5</span>
     </div>
 
+    <!-- Monitor -->
     <div class="monitor">
         <canvas id="gridCanvas" width="800" height="350"></canvas>
     </div>
 
+    <!-- Stand -->
     <div class="stand"></div>
 
+    <!-- Keyboard -->
     <div class="keyboard">
         <div class="key">W</div>
         <div class="key">A</div>
@@ -187,12 +194,14 @@
         <div class="key">␣</div>
     </div>
 
+    <!-- Mouse -->
     <div class="mouse"></div>
 
+    <!-- Attribution -->
     <div class="attribution">
         Coded by&nbsp;<a href="https://discordapp.com/users/660138757504106496" target="_blank">amive</a>
     </div>
-
+    
     <script>
         class Game {
             constructor(rows, cols, cellSize) {
@@ -212,8 +221,9 @@
             }
 
             drawGliderGun() {
+                // Write your function here
                 const metrix = [
-                   [36, 1],
+                [36, 1],
                 [34, 2], [36, 2],
                 [24, 3], [25, 3], [32, 3], [33, 3], [46, 3], [47, 3],
                 [23, 4], [27, 4], [32, 4], [33, 4], [46, 4], [47, 4],
@@ -260,15 +270,152 @@
                     this.grid[y][x] = true; });
             }
 
-update() { const newGrid = this.createEmptyGrid(); for (let y = 0; y < this.rows; y++) { for (let x = 0; x < this.cols; x++) {const neighbors = this.countNeighbors(x, y); newGrid[y][x] = (this.grid[y][x] && (neighbors === 2 || neighbors === 3)) || (!this.grid[y][x] && neighbors === 3); } } this.grid = newGrid; } countNeighbors(x, y) { let count = 0; for (let dy = -1; dy <= 1; dy++) { for (let dx = -1; dx <= 1; dx++) { if (dx === 0 && dy === 0) continue; const nx = (x + dx + this.cols) % this.cols; const ny = (y + dy + this.rows) % this.rows; if (this.grid[ny][nx]) count++; } } return count; } }document.addEventListener('DOMContentLoaded', () => { const game = new Game(50, 80, 10); const canvas = document.getElementById('gridCanvas'); const ctx = canvas.getContext('2d'); let intervalId; drawGrid(); functiondrawGrid() { ctx.clearRect(0, 0, canvas.width, canvas.height); game.grid.forEach((row, y) => row.forEach((cell, x) => {if (cell) { drawDiamond(x * game.cellSize, y * game.cellSize, game.cellSize); } })); ctx.strokeStyle = "#555"; ctx.lineWidth = 0.5; for (let x = 0; x < canvas.width; x += game.cellSize) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke(); } for (let y = 0; y < canvas.height; y += game.cellSize) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke(); } } function drawDiamond(x, y, size) { const halfSize = size / 2; ctx.fillStyle = "#00d9ff"; ctx.beginPath(); ctx.moveTo(x + halfSize, y); ctx.lineTo(x + size, y + halfSize); ctx.lineTo(x + halfSize, y + size); ctx.lineTo(x, y + halfSize); ctx.closePath(); ctx.fill(); } let isDrawing = false; functiongetTouchPos(event) { const rect = canvas.getBoundingClientRect(); const touch = event.touches[0] || event.changedTouches[0]; return { x: Math.floor((touch.clientX - rect.left) / game.cellSize), y: Math.floor((touch.clientY - rect.top) / game.cellSize) }; } function handleInteraction(event, isTouch = false) { event.preventDefault(); let pos = isTouch ? getTouchPos(event) : { x: Math.floor((event.clientX - canvas.getBoundingClientRect().left) / game.cellSize), y: Math.floor((event.clientY - canvas.getBoundingClientRect().top) / game.cellSize) }; if (pos.x >= 0 && pos.x < game.cols && pos.y >= 0 && pos.y < game.rows) { game.grid[pos.y][pos.x] = !game.grid[pos.y][pos.x]; drawGrid(); } } canvas.addEventListener('mousedown', (event) => { isDrawing = true; handleInteraction(event); }); canvas.addEventListener('mousemove', (event) => { if (isDrawing) handleInteraction(event); });canvas.addEventListener('mouseup', () => isDrawing = false); canvas.addEventListener('mouseleave', () => isDrawing = false); canvas.addEventListener('touchstart', (event) => { isDrawing = true; handleInteraction(event, true); }); canvas.addEventListener('touchmove', (event) => { if (isDrawing) handleInteraction(event, true); }); canvas.addEventListener('touchend', () => isDrawing = false); canvas.addEventListener('touchcancel', () => isDrawing = false); document.getElementById('startBtn').addEventListener('click', () => { game.isRunning = !game.isRunning; conststartBtn = document.getElementById('startBtn'); if (game.isRunning) { startBtn.textContent = "Stop"; startBtn.style.backgroundColor = "#e74c3c"; updateGameSpeed(); } else { startBtn.textContent = "Start"; startBtn.style.backgroundColor = "#2ecc71";
-clearInterval(intervalId);
-}
-            });
+            update() {
+                const newGrid = this.createEmptyGrid();
+                for (let y = 0; y < this.rows; y++) {
+                    for (let x = 0; x < this.cols; x++) {
+                        const neighbors = this.countNeighbors(x, y);
+                        newGrid[y][x] = (this.grid[y][x] && (neighbors === 2 || neighbors === 3)) || (!this.grid[y][x] && neighbors === 3);
+                    }
+                }
+                this.grid = newGrid;
+            }
 
-            let speedLevel = 5;
-            const minSpeed = 1;
-            const maxSpeed = 20;
-            const baseInterval = 500;
+            countNeighbors(x, y) {
+                let count = 0;
+                for (let dy = -1; dy <= 1; dy++) {
+                    for (let dx = -1; dx <= 1; dx++) {
+                        if (dx === 0 && dy === 0) continue;
+                        const nx = (x + dx + this.cols) % this.cols;
+                        const ny = (y + dy + this.rows) % this.rows;
+                        if (this.grid[ny][nx]) count++;
+                    }
+                }
+                return count;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const game = new Game(50, 80, 10);
+            const canvas = document.getElementById('gridCanvas');
+            const ctx = canvas.getContext('2d');
+            let intervalId;
+            drawGrid();
+
+
+               function drawGrid() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+            game.grid.forEach((row, y) => row.forEach((cell, x) => {
+                if (cell) {
+                    drawDiamond(x * game.cellSize, y * game.cellSize, game.cellSize);
+                }
+            }));
+        
+            ctx.strokeStyle = "#555"; 
+            ctx.lineWidth = 0.5; 
+        
+            for (let x = 0; x < canvas.width; x += game.cellSize) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, canvas.height);
+                ctx.stroke();
+            }
+        
+            for (let y = 0; y < canvas.height; y += game.cellSize) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(canvas.width, y);
+                ctx.stroke();
+            }
+        }
+        
+        
+        function drawDiamond(x, y, size) {
+            const halfSize = size / 2;
+            ctx.fillStyle = "#00d9ff";
+            ctx.beginPath();
+            ctx.moveTo(x + halfSize, y);            
+            ctx.lineTo(x + size, y + halfSize);      
+            ctx.lineTo(x + halfSize, y + size);      
+            ctx.lineTo(x, y + halfSize);             
+            ctx.closePath();
+            ctx.fill();
+        }
+
+        let isDrawing = false;
+            
+            function getTouchPos(event) {
+                const rect = canvas.getBoundingClientRect();
+                const touch = event.touches[0] || event.changedTouches[0];
+                return {
+                    x: Math.floor((touch.clientX - rect.left) / game.cellSize),
+                    y: Math.floor((touch.clientY - rect.top) / game.cellSize)
+                };
+            }
+            
+            function handleInteraction(event, isTouch = false) {
+                event.preventDefault();
+                let pos = isTouch ? getTouchPos(event) : {
+                    x: Math.floor((event.clientX - canvas.getBoundingClientRect().left) / game.cellSize),
+                    y: Math.floor((event.clientY - canvas.getBoundingClientRect().top) / game.cellSize)
+                };
+            
+                if (pos.x >= 0 && pos.x < game.cols && pos.y >= 0 && pos.y < game.rows) {
+                    game.grid[pos.y][pos.x] = !game.grid[pos.y][pos.x];
+                    drawGrid();
+                }
+            }
+            
+            canvas.addEventListener('mousedown', (event) => {
+                isDrawing = true;
+                handleInteraction(event);
+            });
+            canvas.addEventListener('mousemove', (event) => {
+                if (isDrawing) handleInteraction(event);
+            });
+            canvas.addEventListener('mouseup', () => isDrawing = false);
+            canvas.addEventListener('mouseleave', () => isDrawing = false);
+            
+            canvas.addEventListener('touchstart', (event) => {
+                isDrawing = true;
+                handleInteraction(event, true);
+            });
+            canvas.addEventListener('touchmove', (event) => {
+                if (isDrawing) handleInteraction(event, true);
+            });
+            canvas.addEventListener('touchend', () => isDrawing = false);
+            canvas.addEventListener('touchcancel', () => isDrawing = false);
+            
+            function toggleCell(event) {
+                const rect = canvas.getBoundingClientRect();
+                const x = Math.floor((event.clientX - rect.left) / game.cellSize);
+                const y = Math.floor((event.clientY - rect.top) / game.cellSize);
+            
+                if (x >= 0 && x < game.cols && y >= 0 && y < game.rows) {
+                    game.grid[y][x] = !game.grid[y][x]; // Toggle the cell state
+                    drawGrid(); // Update the canvas immediately
+                }
+            }
+        document.getElementById('startBtn').addEventListener('click', () => {
+            game.isRunning = !game.isRunning;
+            const startBtn = document.getElementById('startBtn');
+
+            if (game.isRunning) {
+                startBtn.textContent = "Stop";
+                startBtn.style.backgroundColor = "#e74c3c";
+                updateGameSpeed();
+            } else {
+                startBtn.textContent = "Start";
+                startBtn.style.backgroundColor = "#2ecc71";
+                clearInterval(intervalId);
+            }
+        });
+
+            let speedLevel = 5;  
+            const minSpeed = 1;  
+            const maxSpeed = 20; 
+            const baseInterval = 500; 
             const speedDisplay = document.getElementById('speedDisplay');
 
             function getSpeedInMs(level) {
@@ -299,33 +446,29 @@ clearInterval(intervalId);
                 updateGameSpeed();
             });
 
-            document.getElementById('clearBtn').addEventListener('click', () => {
-                game.grid = game.createEmptyGrid();
-                drawGrid();
-            });
-            document.getElementById('randomBtn').addEventListener('click', () => {
-                game.randomize();
-                drawGrid();
-            });
-            document.getElementById('gliderGunBtn').addEventListener('click', () => {
-                game.drawGliderGun();
-                drawGrid();
-            });
-            document.getElementById('pulsarBtn').addEventListener('click', () => {
-                game.drawPulsar();
-                drawGrid();
-            });
-            document.getElementById('pentaDecathlonBtn').addEventListener('click', () => {
-                game.drawPentaDecathlon();
-                drawGrid();
-            });
 
+            document.getElementById('clearBtn').addEventListener('click', () => { 
+                game.grid = game.createEmptyGrid(); 
+                drawGrid(); });
+            document.getElementById('randomBtn').addEventListener('click', () => {
+                 game.randomize();
+                  drawGrid(); });
+            document.getElementById('gliderGunBtn').addEventListener('click', () => {
+                 game.drawGliderGun();
+                  drawGrid(); });
+            document.getElementById('pulsarBtn').addEventListener('click', () => { 
+                game.drawPulsar();
+                 drawGrid(); });
+            document.getElementById('pentaDecathlonBtn').addEventListener('click', () => {
+                game.drawPentaDecathlon();// Nice drawGosperGliderGun :).
+                  drawGrid(); });
+        });
+                
             document.addEventListener('touchstart', function(event) {
                 if (event.touches.length > 1 && event.target.tagName === "BUTTON") {
-                    event.preventDefault();
+                    event.preventDefault();  
                 }
-            }, { passive: false });
-        });
+                }, { passive: false });
     </script>
 </body>
 </html>
