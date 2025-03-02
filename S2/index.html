@@ -8,6 +8,9 @@
             padding: 0;
             box-sizing: border-box;
         }
+        html, body {
+            touch-action: manipulation;
+        }
 
         body {
             display: flex;
@@ -19,7 +22,6 @@
             color: white;
             font-family: Arial, sans-serif;
             user-select: none;
-            overflow-y: auto;
         }
 
         canvas {
@@ -30,109 +32,88 @@
 
         .controls {
             margin: 15px;
-            gap: 10px;
-            position: sticky;
-            top: 400px;
-            z-index: 1000;
-            padding: 10px;
-            width: 100%;
             display: flex;
-            flex-wrap: wrap;
-            flex-direction: column;
+            gap: 10px;
         }
 
         button {
-            padding: 12px 20px;
-            border: none;
-            border-radius: 8px;
-            font-size: 10px;
-            font-weight: bold;
-            color: white;
-            cursor: pointer;
-            width: 100px;
-            text-align: center;
-            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-        }
-
-@keyframes glowing {
-    0% { box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.2); }
-    50% { box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.4); }
-    100% { box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.2); }
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
 }
 
-        button:hover {
-            transform: scale(1.05);
-            box-shadow: 0px 6px 8px rgba(255, 255, 255, 0.2);
-        }
-        
-        
-        button:active {
-            transform: scale(0.95);
-            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-        
-        
-        #startBtn {
-            background-color: #27ae60;
-        }
-        #startBtn:hover {
-            background-color: #219150;
-        }
-        #slowDownBtn{
-            background-color:#581845;
-        }
-        #speedUpBtn{
-            background-color:#581845;
-        }
-        #clearBtn {
-            background-color: #8b0000;
-        }
-        #clearBtn:hover {
-            background-color: #720000;
-        }
-        
-        #randomBtn {
-            background-color: #fc03b1;
-        }
-        #randomBtn:hover {
-            background-color: #d41199;
-        }
-        
-        #gliderGunBtn {
-            background-color: #8e44ad;
-        }
-        #gliderGunBtn:hover {
-            background-color: #732d91;
-        }
-        
-        #pulsarBtn {
-            background-color: #3498db;
-        }
-        #pulsarBtn:hover {
-            background-color: #2980b9;
-        }
-        
-        #pentaDecathlonBtn {
-            background-color: #ff5733;
-        }
-        #pentaDecathlonBtn:hover {
-            background-color: #cc4626;
-        }
+
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 6px 8px rgba(255, 255, 255, 0.2);
+}
+
+
+button:active {
+    transform: scale(0.95);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+
+#startBtn {
+    background-color: #27ae60;
+}
+#startBtn:hover {
+    background-color: #219150;
+}
+#slowDownBtn{
+    background-color:#581845;
+}
+#speedUpBtn{
+    background-color:#581845;
+}
+#clearBtn {
+    background-color: #8b0000;
+}
+#clearBtn:hover {
+    background-color: #720000;
+}
+
+#randomBtn {
+    background-color: #fc03b1;
+}
+#randomBtn:hover {
+    background-color: #d41199;
+}
+
+#gliderGunBtn {
+    background-color: #8e44ad;
+}
+#gliderGunBtn:hover {
+    background-color: #732d91;
+}
+
+#pulsarBtn {
+    background-color: #3498db;
+}
+#pulsarBtn:hover {
+    background-color: #2980b9;
+}
+
+#pentaDecathlonBtn {
+    background-color: #ff5733;
+}
+#pentaDecathlonBtn:hover {
+    background-color: #cc4626;
+}
 
         .speed-control {
+            display: flex;
             align-items: center;
             gap: 15px;
             padding: 5px 10px;
             border-radius: 3px;
-            position: sticky;
-            top: 10px;
-            z-index: 1000;
-            padding: 10px;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
         }
 
         #speedDisplay {
@@ -145,55 +126,55 @@
             box-shadow: 0px 0px 3px rgba(0, 217, 255, 0.5);
         }
         button#startBtn {
-            transition: background-color 0.3s, transform 0.2s;
-        }
+    transition: background-color 0.3s, transform 0.2s;
+}
         button{
             transition: background-color 0.3s, transform 0.2s;
         }
         .attribution { 
-            font-size: 13px;
-            color: lightblue;
-            font-weight:800;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: fixed; 
-            bottom: 0px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100%;
-            text-align: center;
-            backdrop-filter: blur(1.5px);
-            
-          }
+    font-size: 13px;
+    color: lightblue;
+    font-weight:800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed; 
+    bottom: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    text-align: center;
+    backdrop-filter: blur(1.5px);
+    
+  }
 
-        .attribution a {
-            color: hsl(228, 45%, 44%);
-            text-decoration: none;
-                       }
-        .attribution img {
-            display: flex;
-            width: 15px;
-            }
-            
-        #instructions {
-            font-size: 16px;
-            font-weight: bold;
-            color: #ffffff;
-            background: rgba(0, 0, 0, 0.6);
-            padding: 8px 15px;
-            border-radius: 5px;
-            text-align: center;
-            text-shadow: 0px 0px 8px rgba(0, 217, 255, 0.4);
-            backdrop-filter: blur(2.5px);
-            margin-bottom: 10px;
-            animation: fadeIn 1s ease-in-out;
+    .attribution a {
+        color: hsl(228, 45%, 44%);
+        text-decoration: none;
+                   }
+    .attribution img {
+        display: flex;
+        width: 15px;
         }
-      
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        
+    #instructions {
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-align: center;
+    text-shadow: 0px 0px 8px rgba(0, 217, 255, 0.4);
+    backdrop-filter: blur(2.5px);
+    margin-bottom: 10px;
+    animation: fadeIn 1s ease-in-out;
+}
+  
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
     
     </style>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
@@ -368,24 +349,47 @@
 
         let isDrawing = false;
             
+            function getTouchPos(event) {
+                const rect = canvas.getBoundingClientRect();
+                const touch = event.touches[0] || event.changedTouches[0];
+                return {
+                    x: Math.floor((touch.clientX - rect.left) / game.cellSize),
+                    y: Math.floor((touch.clientY - rect.top) / game.cellSize)
+                };
+            }
+            
+            function handleInteraction(event, isTouch = false) {
+                event.preventDefault();
+                let pos = isTouch ? getTouchPos(event) : {
+                    x: Math.floor((event.clientX - canvas.getBoundingClientRect().left) / game.cellSize),
+                    y: Math.floor((event.clientY - canvas.getBoundingClientRect().top) / game.cellSize)
+                };
+            
+                if (pos.x >= 0 && pos.x < game.cols && pos.y >= 0 && pos.y < game.rows) {
+                    game.grid[pos.y][pos.x] = !game.grid[pos.y][pos.x];
+                    drawGrid();
+                }
+            }
+            
             canvas.addEventListener('mousedown', (event) => {
                 isDrawing = true;
-                toggleCell(event);
+                handleInteraction(event);
             });
-            
             canvas.addEventListener('mousemove', (event) => {
-                if (isDrawing) {
-                    toggleCell(event);
-                }
+                if (isDrawing) handleInteraction(event);
             });
+            canvas.addEventListener('mouseup', () => isDrawing = false);
+            canvas.addEventListener('mouseleave', () => isDrawing = false);
             
-            canvas.addEventListener('mouseup', () => {
-                isDrawing = false;
+            canvas.addEventListener('touchstart', (event) => {
+                isDrawing = true;
+                handleInteraction(event, true);
             });
-            
-            canvas.addEventListener('mouseleave', () => {
-                isDrawing = false;
+            canvas.addEventListener('touchmove', (event) => {
+                if (isDrawing) handleInteraction(event, true);
             });
+            canvas.addEventListener('touchend', () => isDrawing = false);
+            canvas.addEventListener('touchcancel', () => isDrawing = false);
             
             function toggleCell(event) {
                 const rect = canvas.getBoundingClientRect();
@@ -430,7 +434,7 @@
                         drawGrid();
                     }, getSpeedInMs(speedLevel));
                 }
-                speedDisplay.textContent = Speed: ${speedLevel};
+                speedDisplay.textContent = `Speed: ${speedLevel}`;
                 speedDisplay.style.transform = 'scale(1.2)';
                 speedDisplay.style.transition = 'transform 0.2s ease-in-out';
 
@@ -463,5 +467,11 @@
                 game.drawPentaDecathlon();// Nice drawGosperGliderGun :).
                   drawGrid(); });
         });
+                
+            document.addEventListener('touchstart', function(event) {
+                if (event.touches.length > 1 && event.target.tagName === "BUTTON") {
+                    event.preventDefault();  
+                }
+                }, { passive: false });
     </script>
 </body>
