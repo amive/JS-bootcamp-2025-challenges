@@ -22,6 +22,7 @@
             color: white;
             font-family: Arial, sans-serif;
             user-select: none;
+            overflow-y: auto;
         }
 
         canvas {
@@ -34,79 +35,88 @@
             margin: 15px;
             display: flex;
             gap: 10px;
+            position: sticky;
+            top: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            padding: 10px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
         button {
-    padding: 12px 20px;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: bold;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-}
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        }
 
 
-button:hover {
-    transform: scale(1.05);
-    box-shadow: 0px 6px 8px rgba(255, 255, 255, 0.2);
-}
-
-
-button:active {
-    transform: scale(0.95);
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-
-#startBtn {
-    background-color: #27ae60;
-}
-#startBtn:hover {
-    background-color: #219150;
-}
-#slowDownBtn{
-    background-color:#581845;
-}
-#speedUpBtn{
-    background-color:#581845;
-}
-#clearBtn {
-    background-color: #8b0000;
-}
-#clearBtn:hover {
-    background-color: #720000;
-}
-
-#randomBtn {
-    background-color: #fc03b1;
-}
-#randomBtn:hover {
-    background-color: #d41199;
-}
-
-#gliderGunBtn {
-    background-color: #8e44ad;
-}
-#gliderGunBtn:hover {
-    background-color: #732d91;
-}
-
-#pulsarBtn {
-    background-color: #3498db;
-}
-#pulsarBtn:hover {
-    background-color: #2980b9;
-}
-
-#pentaDecathlonBtn {
-    background-color: #ff5733;
-}
-#pentaDecathlonBtn:hover {
-    background-color: #cc4626;
-}
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 6px 8px rgba(255, 255, 255, 0.2);
+        }
+        
+        
+        button:active {
+            transform: scale(0.95);
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        
+        #startBtn {
+            background-color: #27ae60;
+        }
+        #startBtn:hover {
+            background-color: #219150;
+        }
+        #slowDownBtn{
+            background-color:#581845;
+        }
+        #speedUpBtn{
+            background-color:#581845;
+        }
+        #clearBtn {
+            background-color: #8b0000;
+        }
+        #clearBtn:hover {
+            background-color: #720000;
+        }
+        
+        #randomBtn {
+            background-color: #fc03b1;
+        }
+        #randomBtn:hover {
+            background-color: #d41199;
+        }
+        
+        #gliderGunBtn {
+            background-color: #8e44ad;
+        }
+        #gliderGunBtn:hover {
+            background-color: #732d91;
+        }
+        
+        #pulsarBtn {
+            background-color: #3498db;
+        }
+        #pulsarBtn:hover {
+            background-color: #2980b9;
+        }
+        
+        #pentaDecathlonBtn {
+            background-color: #ff5733;
+        }
+        #pentaDecathlonBtn:hover {
+            background-color: #cc4626;
+        }
 
         .speed-control {
             display: flex;
@@ -126,55 +136,55 @@ button:active {
             box-shadow: 0px 0px 3px rgba(0, 217, 255, 0.5);
         }
         button#startBtn {
-    transition: background-color 0.3s, transform 0.2s;
-}
+            transition: background-color 0.3s, transform 0.2s;
+        }
         button{
             transition: background-color 0.3s, transform 0.2s;
         }
         .attribution { 
-    font-size: 13px;
-    color: lightblue;
-    font-weight:800;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed; 
-    bottom: 0px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    text-align: center;
-    backdrop-filter: blur(1.5px);
-    
-  }
+            font-size: 13px;
+            color: lightblue;
+            font-weight:800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: fixed; 
+            bottom: 0px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            text-align: center;
+            backdrop-filter: blur(1.5px);
+            
+          }
 
-    .attribution a {
-        color: hsl(228, 45%, 44%);
-        text-decoration: none;
-                   }
-    .attribution img {
-        display: flex;
-        width: 15px;
+        .attribution a {
+            color: hsl(228, 45%, 44%);
+            text-decoration: none;
+                       }
+        .attribution img {
+            display: flex;
+            width: 15px;
+            }
+            
+        #instructions {
+            font-size: 16px;
+            font-weight: bold;
+            color: #ffffff;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-align: center;
+            text-shadow: 0px 0px 8px rgba(0, 217, 255, 0.4);
+            backdrop-filter: blur(2.5px);
+            margin-bottom: 10px;
+            animation: fadeIn 1s ease-in-out;
         }
-        
-    #instructions {
-    font-size: 16px;
-    font-weight: bold;
-    color: #ffffff;
-    background: rgba(0, 0, 0, 0.6);
-    padding: 8px 15px;
-    border-radius: 5px;
-    text-align: center;
-    text-shadow: 0px 0px 8px rgba(0, 217, 255, 0.4);
-    backdrop-filter: blur(2.5px);
-    margin-bottom: 10px;
-    animation: fadeIn 1s ease-in-out;
-}
-  
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+      
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     
     </style>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
